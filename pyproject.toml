@@ -1,0 +1,24 @@
+[project]
+name = "sql-query-env"
+version = "0.1.0"
+description = "SQL Query Builder OpenEnv environment — an AI agent iteratively builds and debugs SQL queries"
+readme = "README.md"
+requires-python = ">=3.12"
+dependencies = [
+    "openai>=1.0.0",
+    "openenv-core>=0.2.3",
+    "uvicorn>=0.25.0",
+    "fastapi>=0.100.0",
+    "huggingface-hub>=1.9.2",
+    "gradio>=6.11.0",
+]
+
+[project.scripts]
+server = "server.app:main"
+
+[tool.hatch.build.targets.wheel]
+packages = ["server", "models.py", "client.py"]
+
+[build-system]
+requires = ["hatchling"]
+build-backend = "hatchling.build"

@@ -1,0 +1,9 @@
+.venv
+.env
+.git
+.DS_Store
+__pycache__
+*.pyc
+.claude
+imp.md
+requirements.md
