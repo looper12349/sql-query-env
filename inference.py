@@ -25,12 +25,12 @@ from openai import OpenAI
 
 from client import SqlQueryEnvClient, SqlQueryAction
 
-IMAGE_NAME = os.getenv("IMAGE_NAME")
-API_KEY = os.getenv("HF_TOKEN") or os.getenv("API_KEY")
+LOCAL_IMAGE_NAME = os.getenv("LOCAL_IMAGE_NAME")
+HF_TOKEN = os.getenv("HF_TOKEN")
 
-API_BASE_URL = os.getenv("API_BASE_URL") or "https://router.huggingface.co/v1"
-MODEL_NAME = os.getenv("MODEL_NAME") or "Qwen/Qwen2.5-72B-Instruct"
-BENCHMARK = os.getenv("SQL_QUERY_ENV_BENCHMARK", "sql_query_env")
+API_BASE_URL = os.getenv("API_BASE_URL", "https://router.huggingface.co/v1")
+MODEL_NAME = os.getenv("MODEL_NAME", "Qwen/Qwen2.5-72B-Instruct")
+BENCHMARK = "sql_query_env"
 MAX_TEMPERATURE = 0.3
 MAX_TOKENS = 512
 
@@ -249,8 +249,8 @@ async def run_task(client: OpenAI, env: SqlQueryEnvClient, task_id: str) -> floa
 
 
 async def main() -> None:
-    client = OpenAI(base_url=API_BASE_URL, api_key=API_KEY)
-    env = await SqlQueryEnvClient.from_docker_image(IMAGE_NAME)
+    client = OpenAI(base_url=API_BASE_URL, api_key=HF_TOKEN)
+    env = await SqlQueryEnvClient.from_docker_image(LOCAL_IMAGE_NAME)
 
     scores = {}
     try:
